@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/photoDetails"
+        android:layout_width="210dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_horizontal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/titleDetailsTextViewMargin"
+        android:text="Fact-Checking Trump and Cruz at the N.R.A. Convention"
+        android:textSize="@dimen/titleDetailsTextViewTextSize"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/descriptionDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The former president and the Texas senator made inaccurate or misleading claims about the efficacy of gun restrictions, gun ownership trends and school shootings."
+        android:textSize="@dimen/descriptionDetailsTextViewTextSize" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dateDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/dateDetailsTextViewMargin"
+        android:text="2022-05-28"
+        android:textSize="@dimen/dateDetailsTextViewTextSize"
+        android:textStyle="italic" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fullDetailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fullDetailsTextViewMargin"
+            android:text="Read the full article at"
+            android:textSize="@dimen/fullDetailsTextViewTextSize" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/urlDetailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/urlDetailsTextViewMargin"
+            android:autoLink="web"
+            android:text="NEW YORK TIMES"
+            android:textSize="@dimen/urlDetailsTextViewTextSize"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
