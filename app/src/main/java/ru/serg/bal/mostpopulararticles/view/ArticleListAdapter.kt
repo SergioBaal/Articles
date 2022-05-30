@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import ru.serg.bal.mostpopulararticles.databinding.FragmentArticlesListRecyclerItemBinding
 import ru.serg.bal.mostpopulararticles.repository.Article
 import ru.serg.bal.mostpopulararticles.repository.DTO.ResultDTO
@@ -41,6 +42,8 @@ class ArticleListAdapter (
         fun bind(article: Article) {
             FragmentArticlesListRecyclerItemBinding.bind(itemView).apply {
                 titleListTextView.text = article.title
+                photoListImageView.load("${article.photo}")
+
                 root.setOnClickListener {
                     onItemListClickListener.onItemClick(article)
                 }

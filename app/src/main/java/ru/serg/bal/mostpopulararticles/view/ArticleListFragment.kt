@@ -71,7 +71,7 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
             is ArticleListState.Loading -> {}
             is ArticleListState.Success -> {
                 loadingLayout.visibility = View.GONE
-                    adapter.setData(state.article)
+                adapter.setData(state.article)
                 viewModel.getArticle()
 
 
@@ -87,10 +87,12 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
     }
 
     override fun onItemClick(article: Article) {
+        val bundle = Bundle()
+        bundle.putParcelable("123", article)
         requireActivity().supportFragmentManager.beginTransaction().add(
             R.id.container,
             ArticleDetailsFragment.newInstance(Bundle().apply {
-
+                putParcelable("123", article) //TODO:ВЕРНУТЬСЯ
             })
         ).addToBackStack("").commit()
     }

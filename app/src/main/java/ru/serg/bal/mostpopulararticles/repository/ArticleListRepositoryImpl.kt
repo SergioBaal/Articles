@@ -16,6 +16,7 @@ import ru.serg.bal.mostpopulararticles.utils.convertSearchDtoToResultDTO
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleListViewModel
 
 
+
 private val url = "https://api.nytimes.com/"
 
 val timesAPI = Retrofit.Builder().apply {
@@ -49,4 +50,6 @@ class ArticleListRepositoryImpl:ArticleListRepository {
 
             })
     }
+
+
 }

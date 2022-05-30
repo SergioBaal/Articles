@@ -2,20 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
 
     <ImageView
         android:id="@+id/photoDetails"
         android:layout_width="210dp"
         android:layout_height="140dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/titleDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/titleDetailsTextViewMargin"
-        android:text="Fact-Checking Trump and Cruz at the N.R.A. Convention"
+        android:hint="Fact-Checking Trump and Cruz at the N.R.A. Convention"
         android:textSize="@dimen/titleDetailsTextViewTextSize"
         android:textStyle="bold" />
 
@@ -54,8 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/urlDetailsTextViewMargin"
-            android:autoLink="web"
             android:text="NEW YORK TIMES"
+            android:textColor="@color/blue"
             android:textSize="@dimen/urlDetailsTextViewTextSize"
             android:textStyle="italic" />
 

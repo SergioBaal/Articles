@@ -10,6 +10,7 @@ import ru.serg.bal.mostpopulararticles.repository.ArticleListRepositoryImpl
 
 class ArticleListViewModel(
     private val liveData: MutableLiveData<ArticleListState> = MutableLiveData(),
+    private val liveDetailsData: MutableLiveData<DetailsState> = MutableLiveData()
 
     ):ViewModel(){
 
@@ -18,6 +19,12 @@ class ArticleListViewModel(
     fun getLiveData() : LiveData <ArticleListState> {
         return liveData
     }
+
+    fun getDetailsLiveData() : LiveData <DetailsState> {
+        return liveDetailsData
+    }
+
+
 
     fun getArticle() {
             liveData.postValue(ArticleListState.Loading)
@@ -33,6 +40,11 @@ class ArticleListViewModel(
             })
 
     }
+    fun getArticleDetails(article: Article) {
+
+                liveDetailsData.postValue(DetailsState.Success(article))
+            }
+
 
 
 

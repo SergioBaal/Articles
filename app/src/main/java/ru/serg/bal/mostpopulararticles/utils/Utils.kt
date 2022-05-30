@@ -8,7 +8,7 @@ class Utils {
 }
 
 const val TIMES_DOMAIN = "https://api.nytimes.com/svc/mostpopular/v2"
-const val TIMES_PATH = "/viewed/1.json"
+const val TIMES_PATH = "/viewed/7.json"
 const val TIMES_API_KEY = "xFS9lbXmcO5Kl24Ix1cCmKT44Zkq3d8f"
 
 
@@ -17,10 +17,11 @@ fun convertSearchDtoToResultDTO(searchArticleDTO: SearchArticleDTO): List<Result
 }
 fun convertResultDtoTOModel(resultDTO: List <ResultDTO>) : List<Article> {
     val article = mutableListOf<Article>()
+
     for (i in resultDTO.indices) {
-        article.add(i, Article(resultDTO[i].title))
+        val mediaData = resultDTO[i].media[0].mediaMetadata[0]
+        article.add(i, Article (resultDTO[i].title, mediaData.url, resultDTO[i].abstract, resultDTO[i].publishedDate, resultDTO[i].url) )
     }
-
 return article.toList()
-
 }
+
