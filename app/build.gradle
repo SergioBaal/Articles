@@ -10,6 +10,9 @@ android {
         experimental = true
     }
 
+    buildFeatures {
+        viewBinding true
+    }
     defaultConfig {
         applicationId "ru.serg.bal.mostpopulararticles"
         minSdk 24
