@@ -11,6 +11,6 @@
     <dimen name="dateDetailsTextViewMargin">25dp</dimen>
     <dimen name="dateDetailsTextViewTextSize">20sp</dimen>
     <dimen name="descriptionDetailsTextViewTextSize">25sp</dimen>
-    <dimen name="titleDetailsTextViewMargin">20dp</dimen>
+    <dimen name="titleDetailsTextViewMargin">15dp</dimen>
     <dimen name="titleDetailsTextViewTextSize">30sp</dimen>
 </resources>

@@ -2,8 +2,8 @@ package ru.serg.bal.mostpopulararticles.repository.DTO
 
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
@@ -16,4 +16,4 @@ data class SearchArticleDTO(
     val results: List<ResultDTO>,
     @SerializedName("status")
     val status: String
-): Parcelable
+) : Parcelable

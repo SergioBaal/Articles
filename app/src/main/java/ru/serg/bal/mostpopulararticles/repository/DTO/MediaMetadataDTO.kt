@@ -2,8 +2,8 @@ package ru.serg.bal.mostpopulararticles.repository.DTO
 
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MediaMetadataDTO(
@@ -15,4 +15,4 @@ data class MediaMetadataDTO(
     val url: String,
     @SerializedName("width")
     val width: Int
-): Parcelable
+) : Parcelable

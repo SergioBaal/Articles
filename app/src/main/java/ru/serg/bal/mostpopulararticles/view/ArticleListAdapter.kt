@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.serg.bal.mostpopulararticles.databinding.FragmentArticlesListRecyclerItemBinding
 import ru.serg.bal.mostpopulararticles.repository.Article
-import ru.serg.bal.mostpopulararticles.repository.DTO.ResultDTO
-import ru.serg.bal.mostpopulararticles.repository.DTO.SearchArticleDTO
 
-class ArticleListAdapter (
+class ArticleListAdapter(
     private val onItemListClickListener: OnItemListClickListener,
     private var data: List<Article> = listOf()
 ) : RecyclerView.Adapter<ArticleListAdapter.ArticleHolder>() {
@@ -43,7 +41,7 @@ class ArticleListAdapter (
             FragmentArticlesListRecyclerItemBinding.bind(itemView).apply {
                 titleListTextView.text = article.title
                 photoListImageView.load("${article.photo}")
-
+                with (ArticleDetailsFragment) { photoListImageView.load("${article.bigPhoto}") }
                 root.setOnClickListener {
                     onItemListClickListener.onItemClick(article)
                 }

@@ -1,21 +1,19 @@
 package ru.serg.bal.mostpopulararticles.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_articles_list.*
-import kotlinx.android.synthetic.main.fragment_articles_list_recycler_item.*
 import ru.serg.bal.mostpopulararticles.R
 import ru.serg.bal.mostpopulararticles.databinding.FragmentArticlesListBinding
 import ru.serg.bal.mostpopulararticles.repository.Article
+import ru.serg.bal.mostpopulararticles.utils.KEY_BUNDLE_ARTICLE
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleListState
-import ru.serg.bal.mostpopulararticles.viewmodel.ArticleListViewModel
+import ru.serg.bal.mostpopulararticles.viewmodel.ArticleViewModel
 
 class ArticleListFragment : Fragment(), OnItemListClickListener {
     private var _binding: FragmentArticlesListBinding? = null
@@ -28,8 +26,8 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
         _binding = null
     }
 
-    private val viewModel: ArticleListViewModel by lazy {
-        ViewModelProvider(this).get(ArticleListViewModel::class.java)
+    private val viewModel: ArticleViewModel by lazy {
+        ViewModelProvider(this).get(ArticleViewModel::class.java)
     }
 
     private val adapter = ArticleListAdapter(this)
@@ -51,8 +49,7 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
         binding.recyclerView.adapter = adapter
         val observer = object : Observer<ArticleListState> {
             override fun onChanged(data: ArticleListState) {
-                    renderData(data)
-
+                renderData(data)
             }
         }
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
@@ -62,23 +59,31 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
     }
 
 
-
-
-
-    private fun renderData (state: ArticleListState) {
+    private fun renderData(state: ArticleListState) {
         when (state) {
-            is ArticleListState.Error -> { }
-            is ArticleListState.Loading -> {}
+            is ArticleListState.Error -> {
+                binding.loadingLayout.visibility = View.GONE
+                binding.mainListFragment.showSnackBar(
+                    "Ошибка соединения!",
+                    "Повторить?",
+                    {
+                        val data = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
+                        if (data != null) {
+                            viewModel.getArticleDetails(data)
+                        }
+                    }
+
+                )
+            }
+            is ArticleListState.Loading -> {
+                loadingLayout.visibility = View.VISIBLE
+            }
             is ArticleListState.Success -> {
                 loadingLayout.visibility = View.GONE
                 adapter.setData(state.article)
-                viewModel.getArticle()
-
-
-                }
             }
         }
-
+    }
 
 
     companion object {
@@ -88,11 +93,11 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
 
     override fun onItemClick(article: Article) {
         val bundle = Bundle()
-        bundle.putParcelable("123", article)
+        bundle.putParcelable(KEY_BUNDLE_ARTICLE, article)
         requireActivity().supportFragmentManager.beginTransaction().add(
             R.id.container,
             ArticleDetailsFragment.newInstance(Bundle().apply {
-                putParcelable("123", article) //TODO:ВЕРНУТЬСЯ
+                putParcelable(KEY_BUNDLE_ARTICLE, article)
             })
         ).addToBackStack("").commit()
     }

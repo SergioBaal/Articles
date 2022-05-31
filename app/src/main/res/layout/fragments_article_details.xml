@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/fragment_details"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
@@ -10,12 +12,14 @@
         android:id="@+id/photoDetails"
         android:layout_width="210dp"
         android:layout_height="140dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/titleDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_margin="@dimen/titleDetailsTextViewMargin"
         android:hint="Fact-Checking Trump and Cruz at the N.R.A. Convention"
         android:textSize="@dimen/titleDetailsTextViewTextSize"
@@ -62,6 +66,20 @@
             android:textStyle="italic" />
 
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 
 </LinearLayout>

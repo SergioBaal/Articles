@@ -2,8 +2,8 @@ package ru.serg.bal.mostpopulararticles.repository.DTO
 
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MediaDTO(
@@ -19,4 +19,4 @@ data class MediaDTO(
     val subtype: String,
     @SerializedName("type")
     val type: String
-):Parcelable
+) : Parcelable
