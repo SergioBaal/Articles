@@ -13,6 +13,7 @@ const val TIMES_PATH = "svc/mostpopular/v2/viewed/1.json"
 const val API_KEY = "api-key"
 const val TIMES_API_KEY = "xFS9lbXmcO5Kl24Ix1cCmKT44Zkq3d8f"
 const val KEY_BUNDLE_ARTICLE = "article"
+const val KEY_SP_IS_INTERNET = "internet"
 
 
 fun convertSearchDtoToResultDTO(searchArticleDTO: SearchArticleDTO): List<ResultDTO> {

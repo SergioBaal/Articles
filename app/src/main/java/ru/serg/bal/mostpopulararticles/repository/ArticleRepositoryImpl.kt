@@ -12,7 +12,6 @@ import ru.serg.bal.mostpopulararticles.utils.TIMES_API_KEY
 import ru.serg.bal.mostpopulararticles.utils.TIMES_DOMAIN
 import ru.serg.bal.mostpopulararticles.utils.convertResultDtoTOModel
 import ru.serg.bal.mostpopulararticles.utils.convertSearchDtoToResultDTO
-import ru.serg.bal.mostpopulararticles.viewmodel.ArticleListState
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleViewModel
 
 
@@ -39,6 +38,7 @@ class ArticleListRepositoryImpl : ArticleRepository {
                         Log.d("@@@", "Ошибка в ответе с сервера ${response.message()}")
                     }
                 }
+
                 override fun onFailure(call: Call<SearchArticleDTO>, t: Throwable) {
                     callback.onFail()
                     Log.d("@@@", "Ошибка в RepositoryImp ${t.message}")

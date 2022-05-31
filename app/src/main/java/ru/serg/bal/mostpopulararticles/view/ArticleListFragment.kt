@@ -1,5 +1,8 @@
 package ru.serg.bal.mostpopulararticles.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,7 @@ import ru.serg.bal.mostpopulararticles.R
 import ru.serg.bal.mostpopulararticles.databinding.FragmentArticlesListBinding
 import ru.serg.bal.mostpopulararticles.repository.Article
 import ru.serg.bal.mostpopulararticles.utils.KEY_BUNDLE_ARTICLE
+import ru.serg.bal.mostpopulararticles.utils.KEY_SP_IS_INTERNET
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleListState
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleViewModel
 
@@ -52,6 +56,8 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
                 renderData(data)
             }
         }
+
+
         viewModel.getLiveData().observe(viewLifecycleOwner, observer)
         viewModel.getArticle()
 
@@ -62,18 +68,14 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
     private fun renderData(state: ArticleListState) {
         when (state) {
             is ArticleListState.Error -> {
+                isInternet()
                 binding.loadingLayout.visibility = View.GONE
                 binding.mainListFragment.showSnackBar(
                     "Ошибка соединения!",
                     "Повторить?",
                     {
-                        val data = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
-                        if (data != null) {
-                            viewModel.getArticleDetails(data)
-                        }
-                    }
-
-                )
+                        viewModel.getArticle()
+                    })
             }
             is ArticleListState.Loading -> {
                 loadingLayout.visibility = View.VISIBLE
@@ -82,6 +84,22 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
                 loadingLayout.visibility = View.GONE
                 adapter.setData(state.article)
             }
+        }
+    }
+
+    fun isInternet() {
+        if (isNetworkAvailable(requireContext())) {
+            val sp =
+                requireActivity().getSharedPreferences(KEY_SP_IS_INTERNET, Context.MODE_PRIVATE)
+            val editor = sp.edit()
+            editor.putBoolean(KEY_SP_IS_INTERNET, true)
+            editor.apply()
+        } else {
+            val sp =
+                requireActivity().getSharedPreferences(KEY_SP_IS_INTERNET, Context.MODE_PRIVATE)
+            val editor = sp.edit()
+            editor.putBoolean(KEY_SP_IS_INTERNET, false)
+            editor.apply()
         }
     }
 
@@ -100,6 +118,13 @@ class ArticleListFragment : Fragment(), OnItemListClickListener {
                 putParcelable(KEY_BUNDLE_ARTICLE, article)
             })
         ).addToBackStack("").commit()
+    }
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetworkInfo: NetworkInfo? = null
+        activeNetworkInfo = cm.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
     }
 
 }

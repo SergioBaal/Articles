@@ -64,11 +64,11 @@ class ArticleDetailsFragment : Fragment() {
                 binding.fragmentDetails.showSnackBar(
                     "Ошибка соединения!",
                     "Повторить?",
-                    {val data = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
-                        if (data != null) {
-                            viewModel.getArticle()}
+                    {
+                        arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)?.let {
+                            viewModel.getArticleDetails(it)
                         }
-
+                    }
                 )
             }
             is DetailsState.Loading -> {
@@ -79,16 +79,16 @@ class ArticleDetailsFragment : Fragment() {
                 val article = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
 
                 with(binding) {
-                        titleDetailsTextView.text = article!!.title
-                        photoDetails.load(article.bigPhoto)
-                        descriptionDetailsTextView.text = article.description
-                        dateDetailsTextView.text = article.date
-                        urlDetailsTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                        urlDetailsTextView.setOnClickListener {
-                            val url = "${article.url}"
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url);
-                            startActivity(intent);
+                    titleDetailsTextView.text = article!!.title
+                    photoDetails.load(article.bigPhoto)
+                    descriptionDetailsTextView.text = article.description
+                    dateDetailsTextView.text = article.date
+                    urlDetailsTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    urlDetailsTextView.setOnClickListener {
+                        val url = "${article.url}"
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(url);
+                        startActivity(intent);
                     }
                 }
             }

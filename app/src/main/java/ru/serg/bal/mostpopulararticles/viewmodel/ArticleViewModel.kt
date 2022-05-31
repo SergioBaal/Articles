@@ -1,15 +1,18 @@
 package ru.serg.bal.mostpopulararticles.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.serg.bal.mostpopulararticles.MyApp
 import ru.serg.bal.mostpopulararticles.repository.*
+import ru.serg.bal.mostpopulararticles.utils.KEY_SP_IS_INTERNET
 
 class ArticleViewModel(
     private val liveData: MutableLiveData<ArticleListState> = MutableLiveData(),
     private val liveDetailsData: MutableLiveData<DetailsState> = MutableLiveData(),
-    private val repositoryAdd: ArticleRepositoryAdd = ArticleRepositoryRoomImpl()
+    private val repositoryAdd: ArticleRepositoryAdd = ArticleRepositoryRoomImpl(),
 ) : ViewModel() {
 
     private var repository: ArticleRepository = ArticleListRepositoryImpl()
@@ -25,6 +28,8 @@ class ArticleViewModel(
 
     fun getArticle() {
         liveData.postValue(ArticleListState.Loading)
+
+
         repository = if (isInternet()) {
             ArticleListRepositoryImpl()
         } else {
@@ -53,7 +58,9 @@ class ArticleViewModel(
 
 
     fun isInternet(): Boolean {
-        return true  //TODO: заглушка
+        val sp = MyApp.appContext!!.getSharedPreferences(KEY_SP_IS_INTERNET, Context.MODE_PRIVATE)
+        return sp.getBoolean(KEY_SP_IS_INTERNET, false)
+
     }
 
 

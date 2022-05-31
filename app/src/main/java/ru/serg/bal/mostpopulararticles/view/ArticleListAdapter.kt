@@ -41,7 +41,7 @@ class ArticleListAdapter(
             FragmentArticlesListRecyclerItemBinding.bind(itemView).apply {
                 titleListTextView.text = article.title
                 photoListImageView.load("${article.photo}")
-                with (ArticleDetailsFragment) { photoListImageView.load("${article.bigPhoto}") }
+                with(ArticleDetailsFragment) { photoListImageView.load("${article.bigPhoto}") }
                 root.setOnClickListener {
                     onItemListClickListener.onItemClick(article)
                 }
