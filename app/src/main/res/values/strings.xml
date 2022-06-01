@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Most Popular Articles</string>
+    <string name="Error">Connection error</string>
+    <string name="Retry">Retry?</string>
 </resources>

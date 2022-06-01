@@ -20,7 +20,7 @@ class MyApp : Application() {
                     db = Room.databaseBuilder(appContext!!, MyArticleDB::class.java, "room")
                         .allowMainThreadQueries().build()
                 } else {
-                    throw IllegalStateException("Что-то пошло не так")
+                    throw IllegalStateException("Error")
                 }
             }
             return db!!.historyDao()

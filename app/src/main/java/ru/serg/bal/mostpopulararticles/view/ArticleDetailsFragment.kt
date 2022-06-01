@@ -10,27 +10,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.google.android.material.snackbar.Snackbar
+import ru.serg.bal.mostpopulararticles.R
 import ru.serg.bal.mostpopulararticles.databinding.FragmentsArticleDetailsBinding
-import ru.serg.bal.mostpopulararticles.repository.Article
+import ru.serg.bal.mostpopulararticles.repository.DTO.ArticleDTO
 import ru.serg.bal.mostpopulararticles.utils.KEY_BUNDLE_ARTICLE
+import ru.serg.bal.mostpopulararticles.utils.showSnackBar
 import ru.serg.bal.mostpopulararticles.viewmodel.ArticleViewModel
 import ru.serg.bal.mostpopulararticles.viewmodel.DetailsState
 
 
 class ArticleDetailsFragment : Fragment() {
-
-
     private var _binding: FragmentsArticleDetailsBinding? = null
     private val binding: FragmentsArticleDetailsBinding
         get() = _binding!!
-
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,12 +46,10 @@ class ArticleDetailsFragment : Fragment() {
         viewModel.getDetailsLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-        val data = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
+        val data = arguments?.getParcelable<ArticleDTO>(KEY_BUNDLE_ARTICLE)
         if (data != null) {
             viewModel.getArticleDetails(data)
         }
-
-
     }
 
     private fun renderData(state: DetailsState) {
@@ -62,10 +57,10 @@ class ArticleDetailsFragment : Fragment() {
             is DetailsState.Error -> {
                 binding.loadingLayout.visibility = View.GONE
                 binding.fragmentDetails.showSnackBar(
-                    "Ошибка соединения!",
-                    "Повторить?",
+                    getString(R.string.Error),
+                    getString(R.string.Retry),
                     {
-                        arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)?.let {
+                        arguments?.getParcelable<ArticleDTO>(KEY_BUNDLE_ARTICLE)?.let {
                             viewModel.getArticleDetails(it)
                         }
                     }
@@ -76,8 +71,7 @@ class ArticleDetailsFragment : Fragment() {
             }
             is DetailsState.Success -> {
                 binding.loadingLayout.visibility = View.GONE
-                val article = arguments?.getParcelable<Article>(KEY_BUNDLE_ARTICLE)
-
+                val article = arguments?.getParcelable<ArticleDTO>(KEY_BUNDLE_ARTICLE)
                 with(binding) {
                     titleDetailsTextView.text = article!!.title
                     photoDetails.load(article.bigPhoto)
@@ -85,10 +79,10 @@ class ArticleDetailsFragment : Fragment() {
                     dateDetailsTextView.text = article.date
                     urlDetailsTextView.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     urlDetailsTextView.setOnClickListener {
-                        val url = "${article.url}"
+                        val url = article.url
                         val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(url);
-                        startActivity(intent);
+                        intent.data = Uri.parse(url)
+                        startActivity(intent)
                     }
                 }
             }
@@ -103,13 +97,4 @@ class ArticleDetailsFragment : Fragment() {
             return fragment
         }
     }
-}
-
-fun View.showSnackBar(
-    text: String,
-    actionText: String,
-    action: (View) -> Unit,
-    length: Int = Snackbar.LENGTH_INDEFINITE
-) {
-    Snackbar.make(this, text, length).setAction(actionText, action).show()
 }

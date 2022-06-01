@@ -1,10 +1,10 @@
-package ru.serg.bal.mostpopulararticles.repository
+package ru.serg.bal.mostpopulararticles.repository.DTO
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Article(
+data class ArticleDTO(
     val title: String = "",
     val photo: String = "",
     val bigPhoto: String = "",

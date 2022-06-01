@@ -14,7 +14,6 @@ interface HistoryDao {
     @Update
     fun update(entity: HistoryEntity)
 
-    @Query("SELECT * FROM history_table")
+    @Query("SELECT * FROM article_history_table")
     fun getAll(): List<HistoryEntity>
-
 }
